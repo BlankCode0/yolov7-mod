@@ -1,0 +1,8 @@
+train: /content/train.txt  # 118287 images
+val: /content/val.txt # 5000 images
+
+# number of classes
+nc: 6
+
+# class names
+names: [ 'Hello', 'IloveYou', 'No', 'Please', 'Thanks', 'Yes' ]
