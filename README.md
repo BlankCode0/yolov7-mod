@@ -33,6 +33,9 @@ pip install matplotlib opencv-python Pillow PyYAML requests scipy tqdm tensorboa
 - Trained for approximately **100 epochs** on the custom dataset  
 - Both the **baseline YOLOv7** and the **modified YOLOv7** were trained under the same settings for fair comparison
 
+## Trained Weight
+- https://drive.google.com/file/d/1U7jFUjgrI7hx97TPX1t45SSXNlYhJXL-/view?usp=sharing
+
 
 ## 📊 Results
 
