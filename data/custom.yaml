@@ -1,8 +1,5 @@
-train: /content/train.txt  # 118287 images
-val: /content/val.txt # 5000 images
+train: /content/vehicle_ds_800/images/train
+val: /content/vehicle_ds_800/images/val
 
-# number of classes
-nc: 6
-
-# class names
-names: [ 'Hello', 'IloveYou', 'No', 'Please', 'Thanks', 'Yes' ]
+nc: 1
+names: ['car']
