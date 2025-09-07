@@ -18,98 +18,21 @@ python -c "import torch; print(torch.cuda.is_available())"
 pip install matplotlib opencv-python Pillow PyYAML requests scipy tqdm tensorboard pandas seaborn ipython psutil thop
 ```
 
-Verify GPU:
+## 📂 Dataset
 
-python -c "import torch; print(torch.cuda.is_available())"
+- Source: [Kaggle – Vehicle Detection (YOLO version)](https://www.kaggle.com/datasets/muhammadhananasghar/vehicle-detectionyolo-version)  
+- An **800-image subset** was created using a random sampling script.  
+- Split: **640 training images** / **160 validation images**  
+- Classes: **1 (`car`)**
 
+---
 
-Install other dependencies:
+## 🏋️ Training
 
-pip install matplotlib opencv-python Pillow PyYAML requests scipy tqdm tensorboard pandas seaborn ipython psutil thop
+- Model initialized with **pretrained YOLOv7 weights (`yolov7.pt`)**  
+- Trained for approximately **100 epochs** on the custom dataset  
+- Both the **baseline YOLOv7** and the **modified YOLOv7** were trained under the same settings for fair comparison
 
-
-Clone this repository:
-
-git clone https://github.com/Arunkj203/yolov7-mod.git
-cd yolov7-mod
-
-📂 Dataset
-
-We used the Kaggle Vehicle Detection dataset (YOLO version).
-
-Download in Colab:
-
-from google.colab import files
-import os, shutil
-
-# Upload your kaggle.json from Kaggle account settings
-uploaded = files.upload()
-if 'kaggle.json' in uploaded:
-    os.makedirs('/root/.kaggle', exist_ok=True)
-    shutil.move('kaggle.json', '/root/.kaggle/kaggle.json')
-    os.chmod('/root/.kaggle/kaggle.json', 0o600)
-
-!pip install -q kaggle
-!kaggle datasets download -d muhammadhananasghar/vehicle-detectionyolo-version -p /content/vehicle_ds --unzip
-
-Creating an 800-image subset
-
-A script was used to randomly sample 800 labeled images from the dataset:
-
-Train: 640 images
-
-Val: 160 images
-
-Dataset structure after sampling:
-
-vehicle_ds_800/
- ├── images/
- │    ├── train/
- │    └── val/
- └── labels/
-      ├── train/
-      └── val/
-
-
-Custom YAML for YOLOv7:
-
-train: /content/vehicle_ds_800/images/train
-val:   /content/vehicle_ds_800/images/val
-
-nc: 1
-names: ['car']
-
-🏋️ Training
-
-Download official YOLOv7 pretrained weights:
-
-wget "https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7.pt"
-
-
-Train the baseline YOLOv7 and the modified YOLOv7:
-
-# Baseline YOLOv7
-python train.py --batch 8 --cfg cfg/training/yolov7.yaml \
-  --epochs 30 --data data/custom.yaml \
-  --weights /content/yolov7.pt --device 0 --name baseline_800
-
-# Modified YOLOv7
-python train.py --batch 8 --cfg cfg/training/yolov7-mod.yaml \
-  --epochs 30 --data data/custom.yaml \
-  --weights /content/yolov7.pt --device 0 --name mod_800
-
-🔍 Inference
-
-Run detection on a sample image:
-
-python detect.py \
-  --weights runs/train/mod_800/weights/best.pt \
-  --img-size 640 --conf 0.36 \
-  --source /content/vehicle_ds_800/images/val/10.jpg \
-  --no-trace
-
-
-Outputs are saved under runs/detect/.
 
 ## 📊 Results
 
@@ -129,11 +52,14 @@ Outputs are saved under runs/detect/.
   ![Ground Truth](results/test_batch2_labels.jpg)  
 
 - Predictions  
-  ![Predictions](results/test_batch2_pred.jpg)  
+  ![Predictions](results/test_batch2_pred.jpg)
+
 
 ## ✅ Conclusion
 
-The **YOLOv7-Mod** demonstrates improved ability to detect **small and partially occluded vehicles** compared to the baseline YOLOv7.
+- The dataset labels are **incomplete**, with many cars (especially small or partially visible ones) missing from annotations.  
+- The **modified YOLOv7 model** was able to correctly predict more cars than those present in the ground-truth labels, showing improved sensitivity.  
+- With **larger and better-labeled datasets**, and by training for more epochs, the model can further improve in detecting cars in traffic, including **partially visible and small vehicles**.
 
 **Key takeaways:**
 - Detects more vehicles in crowded and occluded scenes than baseline.  
