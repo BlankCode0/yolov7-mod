@@ -122,17 +122,14 @@ Outputs are saved under runs/detect/.
 ### Visualizations
 
 📈 **F1 Score Curve**  
-![F1 Score Curve](results/f1_curve.png)
-
-🔲 **Confusion Matrix**  
-![Confusion Matrix](results/confusion_matrix.png)
+![F1 Score Curve](results/F1_curve.png)
 
 🖼️ **Example Validation Batches**  
 - Ground Truth  
-  ![Ground Truth](results/test_batch_labels.jpg)  
+  ![Ground Truth](results/test_batch2_labels.jpg)  
 
 - Predictions  
-  ![Predictions](results/test_batch_pred.jpg)  
+  ![Predictions](results/test_batch2_pred.jpg)  
 
 ## ✅ Conclusion
 
